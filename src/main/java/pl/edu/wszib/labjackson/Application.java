@@ -8,7 +8,11 @@ public class Application {
     public static void main(String[] args) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         // serializacja
-        Person person = new Person("Paweł", "Pustelnik");
+        Person person = new Person(
+                "Paweł",
+                "Pustelnik",
+                new Address("Kraków", "00-000", "ul. Testowa", "1")
+        );
         String json = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(person);
         System.out.println(json);
 
@@ -16,7 +20,13 @@ public class Application {
         String exampleJson = """
                 {
                   "firstName" : "Paweł",
-                  "lastName" : "Pustelnik"
+                  "lastName" : "Pustelnik",
+                  "address" : {
+                      "city" : "Kraków",
+                      "zipCode" : "00-000",
+                      "street" : "ul. Testowa",
+                      "number" : "1"
+                    }
                 }
                 """;
         Person deserializedPerson = objectMapper.readValue(exampleJson, Person.class);
